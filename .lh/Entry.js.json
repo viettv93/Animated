@@ -1,0 +1,42 @@
+{
+    "sourceFile": "Entry.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 6,
+            "patches": [
+                {
+                    "date": 1644590066135,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1644590246122,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,64 +3,64 @@\n \r\n \r\n const width = Dimensions.get(\"screen\").width\r\n const Entry = () => {\r\n-    \r\n+\r\n     const opacityAnim = useRef(new Animated.Value(1)).current;\r\n     const transportToXAnim = useRef(new Animated.Value(0)).current;\r\n \r\n-    const OpacityOut = () => {\r\n-      \r\n-      Animated.parallel([\r\n-      Animated.timing(opacityAnim, {\r\n-        toValue: 0,\r\n-        duration: 3000\r\n-      }),\r\n-      Animated.timing(transportToXAnim, {\r\n-        toValue: width,\r\n-        duration: 3000\r\n-      })\r\n-    ]). start()\r\n+    const rightAndOpacityOut = () => {\r\n+\r\n+        Animated.parallel([\r\n+            Animated.timing(opacityAnim, {\r\n+                toValue: 0,\r\n+                duration: 3000\r\n+            }),\r\n+            Animated.timing(transportToXAnim, {\r\n+                toValue: width,\r\n+                duration: 3000\r\n+            })\r\n+        ]).start()\r\n     };\r\n-  \r\n+\r\n     return (\r\n-      <SafeAreaView style={styles.container}>\r\n-        <Animated.View\r\n-          style={[\r\n-            styles.fadingContainer,\r\n-            {\r\n-              // Bind opacity to animated value\r\n-              opacity: fadeAnim\r\n-            }\r\n-          ]}\r\n-        >\r\n-          <Text style={styles.fadingText}>Fading View!</Text>\r\n-        </Animated.View>\r\n-        <View style={styles.buttonRow}>\r\n-          <Button title=\"Fade In View\" onPress={fadeIn} />\r\n-          <Button title=\"Fade Out View\" onPress={fadeOut} />\r\n-        </View>\r\n-      </SafeAreaView>\r\n+        <SafeAreaView style={styles.container}>\r\n+            <Animated.View\r\n+                style={[\r\n+                    styles.fadingContainer,\r\n+                    {\r\n+                        opacity: opacityAnim,\r\n+                        transform: [{ translateX: transportToXAnim },]\r\n+                    }\r\n+                ]}\r\n+            >\r\n\\ No newline at end of file\n+                <Text style={styles.fadingText}>Fading View!</Text>\r\n+            </Animated.View>\r\n+            <View style={styles.buttonRow}>\r\n+\r\n+                <Button title=\"Fade Out View\" onPress={rightAndOpacityOut} />\r\n+            </View>\r\n+        </SafeAreaView>\r\n     );\r\n-  }\r\n-  \r\n-  const styles = StyleSheet.create({\r\n+}\r\n+\r\n+const styles = StyleSheet.create({\r\n     container: {\r\n-      flex: 1,\r\n-      alignItems: \"center\",\r\n-      justifyContent: \"center\"\r\n+        flex: 1,\r\n+        alignItems: \"center\",\r\n+        justifyContent: \"center\"\r\n     },\r\n     fadingContainer: {\r\n-      padding: 20,\r\n-      backgroundColor: \"powderblue\"\r\n+        padding: 20,\r\n+        backgroundColor: \"powderblue\"\r\n     },\r\n     fadingText: {\r\n-      fontSize: 28\r\n+        fontSize: 28\r\n     },\r\n     buttonRow: {\r\n-      flexBasis: 100,\r\n-      justifyContent: \"space-evenly\",\r\n-      marginVertical: 16\r\n+        flexBasis: 100,\r\n+        justifyContent: \"space-evenly\",\r\n+        marginVertical: 16\r\n     }\r\n-  });\r\n-  \r\n-  export default Entry;\n+});\r\n+\r\n+export default Entry;\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1644590268698,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -36,9 +36,9 @@\n                 <Text style={styles.fadingText}>Fading View!</Text>\r\n             </Animated.View>\r\n             <View style={styles.buttonRow}>\r\n \r\n-                <Button title=\"Fade Out View\" onPress={rightAndOpacityOut} />\r\n+                <Button title=\"Box red\" onPress={rightAndOpacityOut} />\r\n             </View>\r\n         </SafeAreaView>\r\n     );\r\n }\r\n"
+                },
+                {
+                    "date": 1644590281834,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -50,9 +50,9 @@\n         justifyContent: \"center\"\r\n     },\r\n     fadingContainer: {\r\n         padding: 20,\r\n-        backgroundColor: \"powderblue\"\r\n+        backgroundColor: \"red\"\r\n     },\r\n     fadingText: {\r\n         fontSize: 28\r\n     },\r\n"
+                },
+                {
+                    "date": 1644590297143,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -45,10 +45,9 @@\n \r\n const styles = StyleSheet.create({\r\n     container: {\r\n         flex: 1,\r\n-        alignItems: \"center\",\r\n-        justifyContent: \"center\"\r\n+        \r\n     },\r\n     fadingContainer: {\r\n         padding: 20,\r\n         backgroundColor: \"red\"\r\n"
+                },
+                {
+                    "date": 1644590384262,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -49,9 +49,11 @@\n         \r\n     },\r\n     fadingContainer: {\r\n         padding: 20,\r\n-        backgroundColor: \"red\"\r\n+        backgroundColor: \"red\",\r\n+        width: 100,\r\n+        height: 100\r\n     },\r\n     fadingText: {\r\n         fontSize: 28\r\n     },\r\n"
+                },
+                {
+                    "date": 1644590413171,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -32,9 +32,9 @@\n                         transform: [{ translateX: transportToXAnim },]\r\n                     }\r\n                 ]}\r\n             >\r\n-                <Text style={styles.fadingText}>Fading View!</Text>\r\n+                <Text style={styles.fadingText}>Box</Text>\r\n             </Animated.View>\r\n             <View style={styles.buttonRow}>\r\n \r\n                 <Button title=\"Box red\" onPress={rightAndOpacityOut} />\r\n"
+                }
+            ],
+            "date": 1644590066135,
+            "name": "Commit-0",
+            "content": "import React, { useRef } from \"react\";\r\nimport { Animated, Text, View, StyleSheet, Button, SafeAreaView, Dimensions } from \"react-native\"\r\n\r\n\r\nconst width = Dimensions.get(\"screen\").width\r\nconst Entry = () => {\r\n    \r\n    const opacityAnim = useRef(new Animated.Value(1)).current;\r\n    const transportToXAnim = useRef(new Animated.Value(0)).current;\r\n\r\n    const OpacityOut = () => {\r\n      \r\n      Animated.parallel([\r\n      Animated.timing(opacityAnim, {\r\n        toValue: 0,\r\n        duration: 3000\r\n      }),\r\n      Animated.timing(transportToXAnim, {\r\n        toValue: width,\r\n        duration: 3000\r\n      })\r\n    ]). start()\r\n    };\r\n  \r\n    return (\r\n      <SafeAreaView style={styles.container}>\r\n        <Animated.View\r\n          style={[\r\n            styles.fadingContainer,\r\n            {\r\n              // Bind opacity to animated value\r\n              opacity: fadeAnim\r\n            }\r\n          ]}\r\n        >\r\n          <Text style={styles.fadingText}>Fading View!</Text>\r\n        </Animated.View>\r\n        <View style={styles.buttonRow}>\r\n          <Button title=\"Fade In View\" onPress={fadeIn} />\r\n          <Button title=\"Fade Out View\" onPress={fadeOut} />\r\n        </View>\r\n      </SafeAreaView>\r\n    );\r\n  }\r\n  \r\n  const styles = StyleSheet.create({\r\n    container: {\r\n      flex: 1,\r\n      alignItems: \"center\",\r\n      justifyContent: \"center\"\r\n    },\r\n    fadingContainer: {\r\n      padding: 20,\r\n      backgroundColor: \"powderblue\"\r\n    },\r\n    fadingText: {\r\n      fontSize: 28\r\n    },\r\n    buttonRow: {\r\n      flexBasis: 100,\r\n      justifyContent: \"space-evenly\",\r\n      marginVertical: 16\r\n    }\r\n  });\r\n  \r\n  export default Entry;"
+        }
+    ]
+}

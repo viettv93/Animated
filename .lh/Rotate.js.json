@@ -1,0 +1,314 @@
+{
+    "sourceFile": "Rotate.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 74,
+            "patches": [
+                {
+                    "date": 1644592341999,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1644592450919,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,9 +17,10 @@\n     };\r\n \r\n     return (\r\n         <SafeAreaView style={styles.container}>\r\n-            <Animated.Image style={[styles.images, {\r\n+            <Animated.View\r\n+             style={[styles.images, {\r\n                 transform: [{ rotate: rotate }]\r\n             }]} />\r\n             <Button title=\"Press\" onPress={rotateButton} />\r\n         </SafeAreaView>\r\n@@ -34,8 +35,10 @@\n     },\r\n     images: {\r\n         width: 100,\r\n         height: 100,\r\n+        backgroundColor: 'red',\r\n+        borderRadius: 50\r\n     },\r\n     button: {\r\n         flexBasis: 100,\r\n         justifyContent: \"space-evenly\",\r\n"
+                },
+                {
+                    "date": 1644592477665,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,9 @@\n         inputRange: [0, 1],\r\n         outputRange: [\"0deg\", \"360deg\"]\r\n     })\r\n     const rotateButton = () => {\r\n-        Animated.\r\n+        \r\n             Animated.timing(rotateAnim, {\r\n                 toValue: 1,\r\n                 duration: 3000\r\n             }).start();\r\n"
+                },
+                {
+                    "date": 1644592539399,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n import React, { useRef } from \"react\";\r\n-import { Animated, StyleSheet, Button, SafeAreaView } from \"react-native\";\r\n+import { Animated, StyleSheet, Button, SafeAreaView, Text } from \"react-native\";\r\n \r\n const Rotate = () => {\r\n     // fadeAnim will be used as the value for opacity. Initial Value: 0\r\n     const rotateAnim = useRef(new Animated.Value(0)).current;\r\n@@ -20,9 +20,11 @@\n         <SafeAreaView style={styles.container}>\r\n             <Animated.View\r\n              style={[styles.images, {\r\n                 transform: [{ rotate: rotate }]\r\n-            }]} />\r\n+            }]} >\r\n+                <Animated.Text>ALALALLA</Animated.Text>\r\n+            </Animated.View>\r\n             <Button title=\"Press\" onPress={rotateButton} />\r\n         </SafeAreaView>\r\n     );\r\n }\r\n"
+                },
+                {
+                    "date": 1644592573764,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -38,9 +38,11 @@\n     images: {\r\n         width: 100,\r\n         height: 100,\r\n         backgroundColor: 'red',\r\n-        borderRadius: 50\r\n+        borderRadius: 50,\r\n+        justifyContent: \"center\",\r\n+        alignItems: 'center'\r\n     },\r\n     button: {\r\n         flexBasis: 100,\r\n         justifyContent: \"space-evenly\",\r\n"
+                },
+                {
+                    "date": 1644592640481,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,9 +12,11 @@\n         \r\n             Animated.timing(rotateAnim, {\r\n                 toValue: 1,\r\n                 duration: 3000\r\n-            }).start();\r\n+            }).start((result) => {\r\n+                console.log('Finished')\r\n+            });\r\n     };\r\n \r\n     return (\r\n         <SafeAreaView style={styles.container}>\r\n"
+                },
+                {
+                    "date": 1644592690827,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,17 +8,21 @@\n         inputRange: [0, 1],\r\n         outputRange: [\"0deg\", \"360deg\"]\r\n     })\r\n     const rotateButton = () => {\r\n-        \r\n-            Animated.timing(rotateAnim, {\r\n-                toValue: 1,\r\n-                duration: 3000\r\n-            }).start((result) => {\r\n-                console.log('Finished')\r\n-            });\r\n+        startAnim();\r\n     };\r\n \r\n+    const startAnim = () => {\r\n+        Animated.timing(rotateAnim, {\r\n+            toValue: 1,\r\n+            duration: 3000\r\n+        }).start((result) => {\r\n+            console.log('Finished')\r\n+            startAnim();\r\n+        });\r\n+    }\r\n+\r\n     return (\r\n         <SafeAreaView style={styles.container}>\r\n             <Animated.View\r\n              style={[styles.images, {\r\n"
+                },
+                {
+                    "date": 1644592760423,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n import React, { useRef } from \"react\";\r\n-import { Animated, StyleSheet, Button, SafeAreaView, Text } from \"react-native\";\r\n+import { Animated, StyleSheet, Button, SafeAreaView, Text, Easing } from \"react-native\";\r\n \r\n const Rotate = () => {\r\n     // fadeAnim will be used as the value for opacity. Initial Value: 0\r\n     const rotateAnim = useRef(new Animated.Value(0)).current;\r\n@@ -14,9 +14,11 @@\n \r\n     const startAnim = () => {\r\n         Animated.timing(rotateAnim, {\r\n             toValue: 1,\r\n-            duration: 3000\r\n+            duration: 3000,\r\n+            easing: Easing.linear,\r\n+            useNativeDriver: true\r\n         }).start((result) => {\r\n             console.log('Finished')\r\n             startAnim();\r\n         });\r\n"
+                },
+                {
+                    "date": 1644592803998,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,8 +19,9 @@\n             easing: Easing.linear,\r\n             useNativeDriver: true\r\n         }).start((result) => {\r\n             console.log('Finished')\r\n+            rotateAnim.current = 0;\r\n             startAnim();\r\n         });\r\n     }\r\n \r\n"
+                },
+                {
+                    "date": 1644592831331,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,9 @@\n             easing: Easing.linear,\r\n             useNativeDriver: true\r\n         }).start((result) => {\r\n             console.log('Finished')\r\n-            rotateAnim.current = 0;\r\n+            rotateAnim.setValue(0);\r\n             startAnim();\r\n         });\r\n     }\r\n \r\n"
+                },
+                {
+                    "date": 1644592904223,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,11 +18,11 @@\n             duration: 3000,\r\n             easing: Easing.linear,\r\n             useNativeDriver: true\r\n         }).start((result) => {\r\n-            console.log('Finished')\r\n-            rotateAnim.setValue(0);\r\n-            startAnim();\r\n+            // console.log('Finished')\r\n+            // rotateAnim.setValue(0);\r\n+            // startAnim();\r\n         });\r\n     }\r\n \r\n     return (\r\n"
+                },
+                {
+                    "date": 1644592960186,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -24,8 +24,16 @@\n             // startAnim();\r\n         });\r\n     }\r\n \r\n+    const stop = () => {\r\n+        \r\n+    }\r\n+\r\n+    const restart = () => {\r\n+        \r\n+    }\r\n+\r\n     return (\r\n         <SafeAreaView style={styles.container}>\r\n             <Animated.View\r\n              style={[styles.images, {\r\n@@ -33,8 +41,10 @@\n             }]} >\r\n                 <Animated.Text>ALALALLA</Animated.Text>\r\n             </Animated.View>\r\n             <Button title=\"Press\" onPress={rotateButton} />\r\n+            <Button title=\"STOP\" onPress={stop} />\r\n+            <Button title=\"Restart\" onPress={restart} />\r\n         </SafeAreaView>\r\n     );\r\n }\r\n \r\n"
+                },
+                {
+                    "date": 1644593028444,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,8 +3,17 @@\n \r\n const Rotate = () => {\r\n     // fadeAnim will be used as the value for opacity. Initial Value: 0\r\n     const rotateAnim = useRef(new Animated.Value(0)).current;\r\n+\r\n+    const anim = useRef(Animated.timing(rotateAnim, {\r\n+        toValue: 1,\r\n+        duration: 3000,\r\n+        easing: Easing.linear,\r\n+        useNativeDriver: true\r\n+    })).current;\r\n+\r\n+\r\n     const rotate = rotateAnim.interpolate({\r\n         inputRange: [0, 1],\r\n         outputRange: [\"0deg\", \"360deg\"]\r\n     })\r\n@@ -12,18 +21,15 @@\n         startAnim();\r\n     };\r\n \r\n     const startAnim = () => {\r\n-        Animated.timing(rotateAnim, {\r\n-            toValue: 1,\r\n-            duration: 3000,\r\n-            easing: Easing.linear,\r\n-            useNativeDriver: true\r\n-        }).start((result) => {\r\n-            // console.log('Finished')\r\n-            // rotateAnim.setValue(0);\r\n-            // startAnim();\r\n-        });\r\n+        // .start((result) => {\r\n+        //     // console.log('Finished')\r\n+        //     // rotateAnim.setValue(0);\r\n+        //     // startAnim();\r\n+        // });\r\n+\r\n+        anim.start();\r\n     }\r\n \r\n     const stop = () => {\r\n         \r\n"
+                },
+                {
+                    "date": 1644593049489,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,19 +17,18 @@\n         inputRange: [0, 1],\r\n         outputRange: [\"0deg\", \"360deg\"]\r\n     })\r\n     const rotateButton = () => {\r\n-        startAnim();\r\n+        // startAnim();\r\n+        anim.start();\r\n     };\r\n \r\n     const startAnim = () => {\r\n         // .start((result) => {\r\n         //     // console.log('Finished')\r\n         //     // rotateAnim.setValue(0);\r\n         //     // startAnim();\r\n         // });\r\n-\r\n-        anim.start();\r\n     }\r\n \r\n     const stop = () => {\r\n         \r\n"
+                },
+                {
+                    "date": 1644593082298,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -30,9 +30,9 @@\n         // });\r\n     }\r\n \r\n     const stop = () => {\r\n-        \r\n+        anim.stop();\r\n     }\r\n \r\n     const restart = () => {\r\n         \r\n"
+                },
+                {
+                    "date": 1644593098410,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -34,9 +34,9 @@\n         anim.stop();\r\n     }\r\n \r\n     const restart = () => {\r\n-        \r\n+        anim.start();\r\n     }\r\n \r\n     return (\r\n         <SafeAreaView style={styles.container}>\r\n"
+                },
+                {
+                    "date": 1644593209706,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,8 +19,9 @@\n     })\r\n     const rotateButton = () => {\r\n         // startAnim();\r\n         anim.start();\r\n+        rotateAnim.setValue(0)\r\n     };\r\n \r\n     const startAnim = () => {\r\n         // .start((result) => {\r\n"
+                },
+                {
+                    "date": 1644593232582,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,9 @@\n     })\r\n     const rotateButton = () => {\r\n         // startAnim();\r\n         anim.start();\r\n-        rotateAnim.setValue(0)\r\n+        \r\n     };\r\n \r\n     const startAnim = () => {\r\n         // .start((result) => {\r\n"
+                },
+                {
+                    "date": 1644593283553,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -70,9 +70,10 @@\n     },\r\n     button: {\r\n         flexBasis: 100,\r\n         justifyContent: \"space-evenly\",\r\n-        marginVertical: 16\r\n+        marginVertical: 16,\r\n+        marginVertical: 20\r\n     }\r\n });\r\n \r\n export default Rotate;\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1644593298978,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -71,9 +71,9 @@\n     button: {\r\n         flexBasis: 100,\r\n         justifyContent: \"space-evenly\",\r\n         marginVertical: 16,\r\n-        marginVertical: 20\r\n+        \r\n     }\r\n });\r\n \r\n export default Rotate;\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1644593374981,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -34,9 +34,9 @@\n     const stop = () => {\r\n         anim.stop();\r\n     }\r\n \r\n-    const restart = () => {\r\n+    const resume = () => {\r\n         anim.start();\r\n     }\r\n \r\n     return (\r\n@@ -48,9 +48,9 @@\n                 <Animated.Text>ALALALLA</Animated.Text>\r\n             </Animated.View>\r\n             <Button title=\"Press\" onPress={rotateButton} />\r\n             <Button title=\"STOP\" onPress={stop} />\r\n-            <Button title=\"Restart\" onPress={restart} />\r\n+            <Button title=\"Restart\" onPress={resume} />\r\n         </SafeAreaView>\r\n     );\r\n }\r\n \r\n"
+                },
+                {
+                    "date": 1644593614211,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,19 +17,19 @@\n         inputRange: [0, 1],\r\n         outputRange: [\"0deg\", \"360deg\"]\r\n     })\r\n     const rotateButton = () => {\r\n-        // startAnim();\r\n-        anim.start();\r\n+        startAnim();\r\n+        // anim.start();\r\n         \r\n     };\r\n \r\n     const startAnim = () => {\r\n-        // .start((result) => {\r\n-        //     // console.log('Finished')\r\n-        //     // rotateAnim.setValue(0);\r\n-        //     // startAnim();\r\n-        // });\r\n+        anim.start((result) => {\r\n+            console.log('Finished')\r\n+            rotateAnim.setValue(0);\r\n+            startAnim();\r\n+        });\r\n     }\r\n \r\n     const stop = () => {\r\n         anim.stop();\r\n"
+                },
+                {
+                    "date": 1644593842726,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,11 +1,11 @@\n-import React, { useRef } from \"react\";\r\n+import React, { useRef, useState } from \"react\";\r\n import { Animated, StyleSheet, Button, SafeAreaView, Text, Easing } from \"react-native\";\r\n \r\n const Rotate = () => {\r\n     // fadeAnim will be used as the value for opacity. Initial Value: 0\r\n     const rotateAnim = useRef(new Animated.Value(0)).current;\r\n-\r\n+    const [isPlaying, setIsPlaying] = useState(false)\r\n     const anim = useRef(Animated.timing(rotateAnim, {\r\n         toValue: 1,\r\n         duration: 3000,\r\n         easing: Easing.linear,\r\n@@ -24,11 +24,16 @@\n     };\r\n \r\n     const startAnim = () => {\r\n         anim.start((result) => {\r\n-            console.log('Finished')\r\n-            rotateAnim.setValue(0);\r\n+            if(isPlaying){\r\n+                rotateAnim.setValue(0);\r\n             startAnim();\r\n+            }else {\r\n+                rotateAnim.setValue(0);\r\n+                anim.stop();\r\n+            }\r\n+            \r\n         });\r\n     }\r\n \r\n     const stop = () => {\r\n"
+                },
+                {
+                    "date": 1644593851303,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,21 +19,20 @@\n     })\r\n     const rotateButton = () => {\r\n         startAnim();\r\n         // anim.start();\r\n-        \r\n+\r\n     };\r\n \r\n     const startAnim = () => {\r\n         anim.start((result) => {\r\n-            if(isPlaying){\r\n+            if (isPlaying) {\r\n                 rotateAnim.setValue(0);\r\n-            startAnim();\r\n-            }else {\r\n+                startAnim();\r\n+            } else {\r\n                 rotateAnim.setValue(0);\r\n                 anim.stop();\r\n             }\r\n-            \r\n         });\r\n     }\r\n \r\n     const stop = () => {\r\n@@ -46,11 +45,11 @@\n \r\n     return (\r\n         <SafeAreaView style={styles.container}>\r\n             <Animated.View\r\n-             style={[styles.images, {\r\n-                transform: [{ rotate: rotate }]\r\n-            }]} >\r\n+                style={[styles.images, {\r\n+                    transform: [{ rotate: rotate }]\r\n+                }]} >\r\n                 <Animated.Text>ALALALLA</Animated.Text>\r\n             </Animated.View>\r\n             <Button title=\"Press\" onPress={rotateButton} />\r\n             <Button title=\"STOP\" onPress={stop} />\r\n@@ -76,9 +75,9 @@\n     button: {\r\n         flexBasis: 100,\r\n         justifyContent: \"space-evenly\",\r\n         marginVertical: 16,\r\n-        \r\n+\r\n     }\r\n });\r\n \r\n export default Rotate;\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1644593882696,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -28,9 +28,9 @@\n             if (isPlaying) {\r\n                 rotateAnim.setValue(0);\r\n                 startAnim();\r\n             } else {\r\n-                rotateAnim.setValue(0);\r\n+                // rotateAnim.setValue(0);\r\n                 anim.stop();\r\n             }\r\n         });\r\n     }\r\n"
+                },
+                {
+                    "date": 1644593967803,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -32,8 +32,9 @@\n                 // rotateAnim.setValue(0);\r\n                 anim.stop();\r\n             }\r\n         });\r\n+        setIsPlaying(!isPlaying)\r\n     }\r\n \r\n     const stop = () => {\r\n         anim.stop();\r\n"
+                },
+                {
+                    "date": 1644593985139,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,8 +18,9 @@\n         outputRange: [\"0deg\", \"360deg\"]\r\n     })\r\n     const rotateButton = () => {\r\n         startAnim();\r\n+        setIsPlaying(!isPlaying)\r\n         // anim.start();\r\n \r\n     };\r\n \r\n@@ -32,9 +33,9 @@\n                 // rotateAnim.setValue(0);\r\n                 anim.stop();\r\n             }\r\n         });\r\n-        setIsPlaying(!isPlaying)\r\n+        \r\n     }\r\n \r\n     const stop = () => {\r\n         anim.stop();\r\n"
+                },
+                {
+                    "date": 1644594033642,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,9 +18,9 @@\n         outputRange: [\"0deg\", \"360deg\"]\r\n     })\r\n     const rotateButton = () => {\r\n         startAnim();\r\n-        setIsPlaying(!isPlaying)\r\n+        \r\n         // anim.start();\r\n \r\n     };\r\n \r\n"
+                },
+                {
+                    "date": 1644594097127,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,8 +17,9 @@\n         inputRange: [0, 1],\r\n         outputRange: [\"0deg\", \"360deg\"]\r\n     })\r\n     const rotateButton = () => {\r\n+        setIsPlaying(!isPlaying)\r\n         startAnim();\r\n         \r\n         // anim.start();\r\n \r\n"
+                },
+                {
+                    "date": 1644594127200,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,9 @@\n \r\n const Rotate = () => {\r\n     // fadeAnim will be used as the value for opacity. Initial Value: 0\r\n     const rotateAnim = useRef(new Animated.Value(0)).current;\r\n-    const [isPlaying, setIsPlaying] = useState(false)\r\n+    const [isPlaying, setIsPlaying] = useState(true)\r\n     const anim = useRef(Animated.timing(rotateAnim, {\r\n         toValue: 1,\r\n         duration: 3000,\r\n         easing: Easing.linear,\r\n"
+                },
+                {
+                    "date": 1644594405703,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -38,9 +38,9 @@\n         \r\n     }\r\n \r\n     const stop = () => {\r\n-        anim.stop();\r\n+        setIsPlaying(false);\r\n     }\r\n \r\n     const resume = () => {\r\n         anim.start();\r\n"
+                },
+                {
+                    "date": 1644594457608,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,9 +17,9 @@\n         inputRange: [0, 1],\r\n         outputRange: [\"0deg\", \"360deg\"]\r\n     })\r\n     const rotateButton = () => {\r\n-        setIsPlaying(!isPlaying)\r\n+        // setIsPlaying(!isPlaying)\r\n         startAnim();\r\n         \r\n         // anim.start();\r\n \r\n"
+                },
+                {
+                    "date": 1644594534124,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -27,20 +27,22 @@\n \r\n     const startAnim = () => {\r\n         anim.start((result) => {\r\n             if (isPlaying) {\r\n+                console.log('PLAYING')\r\n                 rotateAnim.setValue(0);\r\n                 startAnim();\r\n             } else {\r\n                 // rotateAnim.setValue(0);\r\n+                console.log('STOP')\r\n                 anim.stop();\r\n             }\r\n         });\r\n         \r\n     }\r\n \r\n     const stop = () => {\r\n-        setIsPlaying(false);\r\n+        setIsPlaying(!isPlaying);\r\n     }\r\n \r\n     const resume = () => {\r\n         anim.start();\r\n"
+                },
+                {
+                    "date": 1644594560246,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -40,9 +40,9 @@\n         \r\n     }\r\n \r\n     const stop = () => {\r\n-        setIsPlaying(!isPlaying);\r\n+        setIsPlaying(false);\r\n     }\r\n \r\n     const resume = () => {\r\n         anim.start();\r\n"
+                },
+                {
+                    "date": 1644594624083,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,9 @@\n \r\n const Rotate = () => {\r\n     // fadeAnim will be used as the value for opacity. Initial Value: 0\r\n     const rotateAnim = useRef(new Animated.Value(0)).current;\r\n-    const [isPlaying, setIsPlaying] = useState(true)\r\n+    const [isPlaying, setIsPlaying] = useState(false)\r\n     const anim = useRef(Animated.timing(rotateAnim, {\r\n         toValue: 1,\r\n         duration: 3000,\r\n         easing: Easing.linear,\r\n"
+                },
+                {
+                    "date": 1644594647667,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,9 +17,9 @@\n         inputRange: [0, 1],\r\n         outputRange: [\"0deg\", \"360deg\"]\r\n     })\r\n     const rotateButton = () => {\r\n-        // setIsPlaying(!isPlaying)\r\n+        setIsPlaying(!isPlaying)\r\n         startAnim();\r\n         \r\n         // anim.start();\r\n \r\n"
+                },
+                {
+                    "date": 1644594684723,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,8 +17,9 @@\n         inputRange: [0, 1],\r\n         outputRange: [\"0deg\", \"360deg\"]\r\n     })\r\n     const rotateButton = () => {\r\n+        console.log(isPlaying);\r\n         setIsPlaying(!isPlaying)\r\n         startAnim();\r\n         \r\n         // anim.start();\r\n@@ -26,8 +27,9 @@\n     };\r\n \r\n     const startAnim = () => {\r\n         anim.start((result) => {\r\n+            console.log(isPlaying);\r\n             if (isPlaying) {\r\n                 console.log('PLAYING')\r\n                 rotateAnim.setValue(0);\r\n                 startAnim();\r\n"
+                },
+                {
+                    "date": 1644594704483,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,9 +18,9 @@\n         outputRange: [\"0deg\", \"360deg\"]\r\n     })\r\n     const rotateButton = () => {\r\n         console.log(isPlaying);\r\n-        setIsPlaying(!isPlaying)\r\n+        setIsPlaying(true)\r\n         startAnim();\r\n         \r\n         // anim.start();\r\n \r\n"
+                },
+                {
+                    "date": 1644594831770,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,10 @@\n \r\n const Rotate = () => {\r\n     // fadeAnim will be used as the value for opacity. Initial Value: 0\r\n     const rotateAnim = useRef(new Animated.Value(0)).current;\r\n-    const [isPlaying, setIsPlaying] = useState(false)\r\n+    const isPlaying = useRef(new Animated.Value(false)).current;\r\n+\r\n     const anim = useRef(Animated.timing(rotateAnim, {\r\n         toValue: 1,\r\n         duration: 3000,\r\n         easing: Easing.linear,\r\n@@ -17,10 +18,9 @@\n         inputRange: [0, 1],\r\n         outputRange: [\"0deg\", \"360deg\"]\r\n     })\r\n     const rotateButton = () => {\r\n-        console.log(isPlaying);\r\n-        setIsPlaying(true)\r\n+        isPlaying.setValue(true);\r\n         startAnim();\r\n         \r\n         // anim.start();\r\n \r\n@@ -42,9 +42,10 @@\n         \r\n     }\r\n \r\n     const stop = () => {\r\n-        setIsPlaying(false);\r\n+        isPlaying.setValue(false)\r\n+        anim.stop();\r\n     }\r\n \r\n     const resume = () => {\r\n         anim.start();\r\n"
+                },
+                {
+                    "date": 1644594878279,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,9 @@\n \r\n const Rotate = () => {\r\n     // fadeAnim will be used as the value for opacity. Initial Value: 0\r\n     const rotateAnim = useRef(new Animated.Value(0)).current;\r\n-    const isPlaying = useRef(new Animated.Value(false)).current;\r\n+    const isPlaying = useRef(new Animated.Value(0)).current;\r\n \r\n     const anim = useRef(Animated.timing(rotateAnim, {\r\n         toValue: 1,\r\n         duration: 3000,\r\n@@ -18,9 +18,9 @@\n         inputRange: [0, 1],\r\n         outputRange: [\"0deg\", \"360deg\"]\r\n     })\r\n     const rotateButton = () => {\r\n-        isPlaying.setValue(true);\r\n+        isPlaying.setValue(1);\r\n         startAnim();\r\n         \r\n         // anim.start();\r\n \r\n@@ -28,9 +28,9 @@\n \r\n     const startAnim = () => {\r\n         anim.start((result) => {\r\n             console.log(isPlaying);\r\n-            if (isPlaying) {\r\n+            if (isPlaying === 1) {\r\n                 console.log('PLAYING')\r\n                 rotateAnim.setValue(0);\r\n                 startAnim();\r\n             } else {\r\n@@ -42,9 +42,9 @@\n         \r\n     }\r\n \r\n     const stop = () => {\r\n-        isPlaying.setValue(false)\r\n+        isPlaying.setValue(0)\r\n         anim.stop();\r\n     }\r\n \r\n     const resume = () => {\r\n"
+                },
+                {
+                    "date": 1644594998774,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -28,9 +28,9 @@\n \r\n     const startAnim = () => {\r\n         anim.start((result) => {\r\n             console.log(isPlaying);\r\n-            if (isPlaying === 1) {\r\n+            if (isPlaying == 1) {\r\n                 console.log('PLAYING')\r\n                 rotateAnim.setValue(0);\r\n                 startAnim();\r\n             } else {\r\n"
+                },
+                {
+                    "date": 1644595031593,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -27,9 +27,9 @@\n     };\r\n \r\n     const startAnim = () => {\r\n         anim.start((result) => {\r\n-            console.log(isPlaying);\r\n+            console.log(isPlaying == 1);\r\n             if (isPlaying == 1) {\r\n                 console.log('PLAYING')\r\n                 rotateAnim.setValue(0);\r\n                 startAnim();\r\n"
+                },
+                {
+                    "date": 1644595042095,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -27,9 +27,9 @@\n     };\r\n \r\n     const startAnim = () => {\r\n         anim.start((result) => {\r\n-            console.log(isPlaying == 1);\r\n+            console.log(isPlaying === 1);\r\n             if (isPlaying == 1) {\r\n                 console.log('PLAYING')\r\n                 rotateAnim.setValue(0);\r\n                 startAnim();\r\n"
+                },
+                {
+                    "date": 1644595111906,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,8 +4,9 @@\n const Rotate = () => {\r\n     // fadeAnim will be used as the value for opacity. Initial Value: 0\r\n     const rotateAnim = useRef(new Animated.Value(0)).current;\r\n     const isPlaying = useRef(new Animated.Value(0)).current;\r\n+    const compare = useRef(new Animated.Value(1)).current;\r\n \r\n     const anim = useRef(Animated.timing(rotateAnim, {\r\n         toValue: 1,\r\n         duration: 3000,\r\n@@ -27,9 +28,9 @@\n     };\r\n \r\n     const startAnim = () => {\r\n         anim.start((result) => {\r\n-            console.log(isPlaying === 1);\r\n+            console.log(isPlaying === compare);\r\n             if (isPlaying == 1) {\r\n                 console.log('PLAYING')\r\n                 rotateAnim.setValue(0);\r\n                 startAnim();\r\n"
+                },
+                {
+                    "date": 1644595131728,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,9 +4,8 @@\n const Rotate = () => {\r\n     // fadeAnim will be used as the value for opacity. Initial Value: 0\r\n     const rotateAnim = useRef(new Animated.Value(0)).current;\r\n     const isPlaying = useRef(new Animated.Value(0)).current;\r\n-    const compare = useRef(new Animated.Value(1)).current;\r\n \r\n     const anim = useRef(Animated.timing(rotateAnim, {\r\n         toValue: 1,\r\n         duration: 3000,\r\n@@ -28,9 +27,9 @@\n     };\r\n \r\n     const startAnim = () => {\r\n         anim.start((result) => {\r\n-            console.log(isPlaying === compare);\r\n+            console.log(isPlaying);\r\n             if (isPlaying == 1) {\r\n                 console.log('PLAYING')\r\n                 rotateAnim.setValue(0);\r\n                 startAnim();\r\n"
+                },
+                {
+                    "date": 1644595145913,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,9 @@\n \r\n const Rotate = () => {\r\n     // fadeAnim will be used as the value for opacity. Initial Value: 0\r\n     const rotateAnim = useRef(new Animated.Value(0)).current;\r\n-    const isPlaying = useRef(new Animated.Value(0)).current;\r\n+    const isPlaying = useRef(new Animated.Value(0));\r\n \r\n     const anim = useRef(Animated.timing(rotateAnim, {\r\n         toValue: 1,\r\n         duration: 3000,\r\n"
+                },
+                {
+                    "date": 1644595198822,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,33 +18,33 @@\n         inputRange: [0, 1],\r\n         outputRange: [\"0deg\", \"360deg\"]\r\n     })\r\n     const rotateButton = () => {\r\n-        isPlaying.setValue(1);\r\n+        isPlaying.current.setValue(1)\r\n         startAnim();\r\n         \r\n         // anim.start();\r\n \r\n     };\r\n \r\n     const startAnim = () => {\r\n         anim.start((result) => {\r\n+            // if (isPlaying == 1) {\r\n+            //     console.log('PLAYING')\r\n+            //     rotateAnim.setValue(0);\r\n+            //     startAnim();\r\n+            // } else {\r\n+            //     // rotateAnim.setValue(0);\r\n+            //     console.log('STOP')\r\n+            //     anim.stop();\r\n+            // }\r\n             console.log(isPlaying);\r\n-            if (isPlaying == 1) {\r\n-                console.log('PLAYING')\r\n-                rotateAnim.setValue(0);\r\n-                startAnim();\r\n-            } else {\r\n-                // rotateAnim.setValue(0);\r\n-                console.log('STOP')\r\n-                anim.stop();\r\n-            }\r\n         });\r\n         \r\n     }\r\n \r\n     const stop = () => {\r\n-        isPlaying.setValue(0)\r\n+        isPlaying.current.setValue(0)\r\n         anim.stop();\r\n     }\r\n \r\n     const resume = () => {\r\n"
+                },
+                {
+                    "date": 1644595211047,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -36,9 +36,9 @@\n             //     // rotateAnim.setValue(0);\r\n             //     console.log('STOP')\r\n             //     anim.stop();\r\n             // }\r\n-            console.log(isPlaying);\r\n+            console.log(isPlaying.current);\r\n         });\r\n         \r\n     }\r\n \r\n"
+                },
+                {
+                    "date": 1644595220416,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -36,9 +36,9 @@\n             //     // rotateAnim.setValue(0);\r\n             //     console.log('STOP')\r\n             //     anim.stop();\r\n             // }\r\n-            console.log(isPlaying.current);\r\n+            console.log(isPlaying.current == 1);\r\n         });\r\n         \r\n     }\r\n \r\n"
+                },
+                {
+                    "date": 1644595236231,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -36,9 +36,9 @@\n             //     // rotateAnim.setValue(0);\r\n             //     console.log('STOP')\r\n             //     anim.stop();\r\n             // }\r\n-            console.log(isPlaying.current == 1);\r\n+            console.log(isPlaying.current == '1');\r\n         });\r\n         \r\n     }\r\n \r\n"
+                },
+                {
+                    "date": 1644595250552,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -36,9 +36,9 @@\n             //     // rotateAnim.setValue(0);\r\n             //     console.log('STOP')\r\n             //     anim.stop();\r\n             // }\r\n-            console.log(isPlaying.current == '1');\r\n+            console.log(isPlaying.current === 1);\r\n         });\r\n         \r\n     }\r\n \r\n"
+                },
+                {
+                    "date": 1644595327575,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -36,9 +36,9 @@\n             //     // rotateAnim.setValue(0);\r\n             //     console.log('STOP')\r\n             //     anim.stop();\r\n             // }\r\n-            console.log(isPlaying.current === 1);\r\n+            const num = `${isPlaying.current}`\r\n         });\r\n         \r\n     }\r\n \r\n"
+                },
+                {
+                    "date": 1644595333849,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -37,8 +37,9 @@\n             //     console.log('STOP')\r\n             //     anim.stop();\r\n             // }\r\n             const num = `${isPlaying.current}`\r\n+            console.log(num)\r\n         });\r\n         \r\n     }\r\n \r\n"
+                },
+                {
+                    "date": 1644595394186,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -37,8 +37,9 @@\n             //     console.log('STOP')\r\n             //     anim.stop();\r\n             // }\r\n             const num = `${isPlaying.current}`\r\n+            \r\n             console.log(num)\r\n         });\r\n         \r\n     }\r\n"
+                },
+                {
+                    "date": 1644595482656,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -38,9 +38,9 @@\n             //     anim.stop();\r\n             // }\r\n             const num = `${isPlaying.current}`\r\n             \r\n-            console.log(num)\r\n+            console.log(isPlaying.current)\r\n         });\r\n         \r\n     }\r\n \r\n"
+                },
+                {
+                    "date": 1644595585634,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,11 +1,13 @@\n import React, { useRef, useState } from \"react\";\r\n import { Animated, StyleSheet, Button, SafeAreaView, Text, Easing } from \"react-native\";\r\n+const obj1 = 1;\r\n+const obj0 = 0;\r\n \r\n const Rotate = () => {\r\n     // fadeAnim will be used as the value for opacity. Initial Value: 0\r\n     const rotateAnim = useRef(new Animated.Value(0)).current;\r\n-    const isPlaying = useRef(new Animated.Value(0));\r\n+    const isPlaying = useRef(new Animated.Value(obj0));\r\n \r\n     const anim = useRef(Animated.timing(rotateAnim, {\r\n         toValue: 1,\r\n         duration: 3000,\r\n@@ -18,9 +20,9 @@\n         inputRange: [0, 1],\r\n         outputRange: [\"0deg\", \"360deg\"]\r\n     })\r\n     const rotateButton = () => {\r\n-        isPlaying.current.setValue(1)\r\n+        isPlaying.current.setValue(obj1)\r\n         startAnim();\r\n         \r\n         // anim.start();\r\n \r\n@@ -36,11 +38,10 @@\n             //     // rotateAnim.setValue(0);\r\n             //     console.log('STOP')\r\n             //     anim.stop();\r\n             // }\r\n-            const num = `${isPlaying.current}`\r\n-            \r\n-            console.log(isPlaying.current)\r\n+\r\n+            console.log(isPlaying.current == obj1)\r\n         });\r\n         \r\n     }\r\n \r\n"
+                },
+                {
+                    "date": 1644595619003,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,13 +1,11 @@\n import React, { useRef, useState } from \"react\";\r\n import { Animated, StyleSheet, Button, SafeAreaView, Text, Easing } from \"react-native\";\r\n-const obj1 = 1;\r\n-const obj0 = 0;\r\n \r\n const Rotate = () => {\r\n     // fadeAnim will be used as the value for opacity. Initial Value: 0\r\n     const rotateAnim = useRef(new Animated.Value(0)).current;\r\n-    const isPlaying = useRef(new Animated.Value(obj0));\r\n+    const isPlaying = useRef(new Animated.Value(0));\r\n \r\n     const anim = useRef(Animated.timing(rotateAnim, {\r\n         toValue: 1,\r\n         duration: 3000,\r\n@@ -20,9 +18,9 @@\n         inputRange: [0, 1],\r\n         outputRange: [\"0deg\", \"360deg\"]\r\n     })\r\n     const rotateButton = () => {\r\n-        isPlaying.current.setValue(obj1)\r\n+        isPlaying.current.setValue(1)\r\n         startAnim();\r\n         \r\n         // anim.start();\r\n \r\n@@ -38,10 +36,8 @@\n             //     // rotateAnim.setValue(0);\r\n             //     console.log('STOP')\r\n             //     anim.stop();\r\n             // }\r\n-\r\n-            console.log(isPlaying.current == obj1)\r\n         });\r\n         \r\n     }\r\n \r\n"
+                },
+                {
+                    "date": 1644595647186,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,9 @@\n \r\n const Rotate = () => {\r\n     // fadeAnim will be used as the value for opacity. Initial Value: 0\r\n     const rotateAnim = useRef(new Animated.Value(0)).current;\r\n-    const isPlaying = useRef(new Animated.Value(0));\r\n+    var isPlaying = false;\r\n \r\n     const anim = useRef(Animated.timing(rotateAnim, {\r\n         toValue: 1,\r\n         duration: 3000,\r\n@@ -18,26 +18,26 @@\n         inputRange: [0, 1],\r\n         outputRange: [\"0deg\", \"360deg\"]\r\n     })\r\n     const rotateButton = () => {\r\n-        isPlaying.current.setValue(1)\r\n+        isPlaying = true;\r\n         startAnim();\r\n         \r\n         // anim.start();\r\n \r\n     };\r\n \r\n     const startAnim = () => {\r\n         anim.start((result) => {\r\n-            // if (isPlaying == 1) {\r\n-            //     console.log('PLAYING')\r\n-            //     rotateAnim.setValue(0);\r\n-            //     startAnim();\r\n-            // } else {\r\n-            //     // rotateAnim.setValue(0);\r\n-            //     console.log('STOP')\r\n-            //     anim.stop();\r\n-            // }\r\n+            if (isPlaying == true) {\r\n+                console.log('PLAYING')\r\n+                rotateAnim.setValue(0);\r\n+                startAnim();\r\n+            } else {\r\n+                // rotateAnim.setValue(0);\r\n+                console.log('STOP')\r\n+                anim.stop();\r\n+            }\r\n         });\r\n         \r\n     }\r\n \r\n"
+                },
+                {
+                    "date": 1644595652810,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -41,9 +41,9 @@\n         \r\n     }\r\n \r\n     const stop = () => {\r\n-        isPlaying.current.setValue(0)\r\n+        isPlaying = false\r\n         anim.stop();\r\n     }\r\n \r\n     const resume = () => {\r\n"
+                },
+                {
+                    "date": 1644595737723,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -42,9 +42,9 @@\n     }\r\n \r\n     const stop = () => {\r\n         isPlaying = false\r\n-        anim.stop();\r\n+        // anim.stop();\r\n     }\r\n \r\n     const resume = () => {\r\n         anim.start();\r\n"
+                },
+                {
+                    "date": 1644595758664,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -42,9 +42,9 @@\n     }\r\n \r\n     const stop = () => {\r\n         isPlaying = false\r\n-        // anim.stop();\r\n+        anim.stop();\r\n     }\r\n \r\n     const resume = () => {\r\n         anim.start();\r\n"
+                },
+                {
+                    "date": 1644595795696,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -45,11 +45,9 @@\n         isPlaying = false\r\n         anim.stop();\r\n     }\r\n \r\n-    const resume = () => {\r\n-        anim.start();\r\n-    }\r\n+    \r\n \r\n     return (\r\n         <SafeAreaView style={styles.container}>\r\n             <Animated.View\r\n@@ -59,9 +57,9 @@\n                 <Animated.Text>ALALALLA</Animated.Text>\r\n             </Animated.View>\r\n             <Button title=\"Press\" onPress={rotateButton} />\r\n             <Button title=\"STOP\" onPress={stop} />\r\n-            <Button title=\"Restart\" onPress={resume} />\r\n+           \r\n         </SafeAreaView>\r\n     );\r\n }\r\n \r\n"
+                },
+                {
+                    "date": 1644595825586,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -55,10 +55,10 @@\n                     transform: [{ rotate: rotate }]\r\n                 }]} >\r\n                 <Animated.Text>ALALALLA</Animated.Text>\r\n             </Animated.View>\r\n-            <Button title=\"Press\" onPress={rotateButton} />\r\n-            <Button title=\"STOP\" onPress={stop} />\r\n+            <Button title=\"play\" onPress={rotateButton} />\r\n+            <Button title=\"pause\" onPress={stop} />\r\n            \r\n         </SafeAreaView>\r\n     );\r\n }\r\n"
+                },
+                {
+                    "date": 1644595938721,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,9 +17,9 @@\n     const rotate = rotateAnim.interpolate({\r\n         inputRange: [0, 1],\r\n         outputRange: [\"0deg\", \"360deg\"]\r\n     })\r\n-    const rotateButton = () => {\r\n+    const rotatePlay = () => {\r\n         isPlaying = true;\r\n         startAnim();\r\n         \r\n         // anim.start();\r\n@@ -40,9 +40,9 @@\n         });\r\n         \r\n     }\r\n \r\n-    const stop = () => {\r\n+    const rotatePause = () => {\r\n         isPlaying = false\r\n         anim.stop();\r\n     }\r\n \r\n@@ -55,10 +55,10 @@\n                     transform: [{ rotate: rotate }]\r\n                 }]} >\r\n                 <Animated.Text>ALALALLA</Animated.Text>\r\n             </Animated.View>\r\n-            <Button title=\"play\" onPress={rotateButton} />\r\n-            <Button title=\"pause\" onPress={stop} />\r\n+            <Button title=\"play\" onPress={rotatePlay} />\r\n+            <Button title=\"pause\" onPress={rotatePause} />\r\n            \r\n         </SafeAreaView>\r\n     );\r\n }\r\n"
+                },
+                {
+                    "date": 1644596056412,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -45,9 +45,13 @@\n         isPlaying = false\r\n         anim.stop();\r\n     }\r\n \r\n-    \r\n+    const rotateStop = () => {\r\n+        rotateAnim.setValue(0)\r\n+        isPlaying = false\r\n+        anim.stop();\r\n+    }\r\n \r\n     return (\r\n         <SafeAreaView style={styles.container}>\r\n             <Animated.View\r\n@@ -57,9 +61,9 @@\n                 <Animated.Text>ALALALLA</Animated.Text>\r\n             </Animated.View>\r\n             <Button title=\"play\" onPress={rotatePlay} />\r\n             <Button title=\"pause\" onPress={rotatePause} />\r\n-           \r\n+            <Button title=\"Stop\" onPress={rotateStop} />\r\n         </SafeAreaView>\r\n     );\r\n }\r\n \r\n"
+                },
+                {
+                    "date": 1644596113004,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -81,9 +81,10 @@\n         justifyContent: \"center\",\r\n         alignItems: 'center'\r\n     },\r\n     button: {\r\n-        flexBasis: 100,\r\n+        width: 200,\r\n+        height: 200,\r\n         justifyContent: \"space-evenly\",\r\n         marginVertical: 16,\r\n \r\n     }\r\n"
+                },
+                {
+                    "date": 1644596125744,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -81,10 +81,10 @@\n         justifyContent: \"center\",\r\n         alignItems: 'center'\r\n     },\r\n     button: {\r\n-        width: 200,\r\n-        height: 200,\r\n+        width: 400,\r\n+        height: 400,\r\n         justifyContent: \"space-evenly\",\r\n         marginVertical: 16,\r\n \r\n     }\r\n"
+                },
+                {
+                    "date": 1644596206211,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -81,10 +81,9 @@\n         justifyContent: \"center\",\r\n         alignItems: 'center'\r\n     },\r\n     button: {\r\n-        width: 400,\r\n-        height: 400,\r\n+        flexBasis: 100,\r\n         justifyContent: \"space-evenly\",\r\n         marginVertical: 16,\r\n \r\n     }\r\n"
+                },
+                {
+                    "date": 1644596324910,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n import React, { useRef, useState } from \"react\";\r\n-import { Animated, StyleSheet, Button, SafeAreaView, Text, Easing } from \"react-native\";\r\n+import { Animated, StyleSheet, Button, SafeAreaView, Text, Easing, Slider } from \"react-native\";\r\n \r\n const Rotate = () => {\r\n     // fadeAnim will be used as the value for opacity. Initial Value: 0\r\n     const rotateAnim = useRef(new Animated.Value(0)).current;\r\n@@ -62,8 +62,10 @@\n             </Animated.View>\r\n             <Button title=\"play\" onPress={rotatePlay} />\r\n             <Button title=\"pause\" onPress={rotatePause} />\r\n             <Button title=\"Stop\" onPress={rotateStop} />\r\n+\r\n+            <Slider value={}  maximumValue={100} thumbTintColor={'red'} />\r\n         </SafeAreaView>\r\n     );\r\n }\r\n \r\n"
+                },
+                {
+                    "date": 1644596330194,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -63,9 +63,9 @@\n             <Button title=\"play\" onPress={rotatePlay} />\r\n             <Button title=\"pause\" onPress={rotatePause} />\r\n             <Button title=\"Stop\" onPress={rotateStop} />\r\n \r\n-            <Slider value={}  maximumValue={100} thumbTintColor={'red'} />\r\n+            <Slider value={0}  maximumValue={100} thumbTintColor={'red'} />\r\n         </SafeAreaView>\r\n     );\r\n }\r\n \r\n"
+                },
+                {
+                    "date": 1644596345046,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -63,9 +63,9 @@\n             <Button title=\"play\" onPress={rotatePlay} />\r\n             <Button title=\"pause\" onPress={rotatePause} />\r\n             <Button title=\"Stop\" onPress={rotateStop} />\r\n \r\n-            <Slider value={0}  maximumValue={100} thumbTintColor={'red'} />\r\n+            <Slider value={0}  maximumValue={100} thumbTintColor={'red'} style={{width: 300}} />\r\n         </SafeAreaView>\r\n     );\r\n }\r\n \r\n"
+                },
+                {
+                    "date": 1644596358592,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,9 +20,9 @@\n     })\r\n     const rotatePlay = () => {\r\n         isPlaying = true;\r\n         startAnim();\r\n-        \r\n+\r\n         // anim.start();\r\n \r\n     };\r\n \r\n@@ -37,9 +37,9 @@\n                 console.log('STOP')\r\n                 anim.stop();\r\n             }\r\n         });\r\n-        \r\n+\r\n     }\r\n \r\n     const rotatePause = () => {\r\n         isPlaying = false\r\n@@ -63,9 +63,13 @@\n             <Button title=\"play\" onPress={rotatePlay} />\r\n             <Button title=\"pause\" onPress={rotatePause} />\r\n             <Button title=\"Stop\" onPress={rotateStop} />\r\n \r\n-            <Slider value={0}  maximumValue={100} thumbTintColor={'red'} style={{width: 300}} />\r\n+            <Slider\r\n+                value={0}\r\n+                maximumValue={100}\r\n+                thumbTintColor={'red'}\r\n+                style={{ width: 300 }} />\r\n         </SafeAreaView>\r\n     );\r\n }\r\n \r\n"
+                },
+                {
+                    "date": 1644596387980,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -64,8 +64,11 @@\n             <Button title=\"pause\" onPress={rotatePause} />\r\n             <Button title=\"Stop\" onPress={rotateStop} />\r\n \r\n             <Slider\r\n+                onSlidingComplete={(value) => {\r\n+                    console.log(value)\r\n+                }}\r\n                 value={0}\r\n                 maximumValue={100}\r\n                 thumbTintColor={'red'}\r\n                 style={{ width: 300 }} />\r\n"
+                },
+                {
+                    "date": 1644596485487,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -68,11 +68,11 @@\n                 onSlidingComplete={(value) => {\r\n                     console.log(value)\r\n                 }}\r\n                 value={0}\r\n-                maximumValue={100}\r\n+                maximumValue={150}\r\n                 thumbTintColor={'red'}\r\n-                style={{ width: 300 }} />\r\n+                style={{ width: 400 }} />\r\n         </SafeAreaView>\r\n     );\r\n }\r\n \r\n"
+                },
+                {
+                    "date": 1644596493213,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -70,9 +70,9 @@\n                 }}\r\n                 value={0}\r\n                 maximumValue={150}\r\n                 thumbTintColor={'red'}\r\n-                style={{ width: 400 }} />\r\n+                style={{ width: 300 }} />\r\n         </SafeAreaView>\r\n     );\r\n }\r\n \r\n"
+                }
+            ],
+            "date": 1644592341999,
+            "name": "Commit-0",
+            "content": "import React, { useRef } from \"react\";\r\nimport { Animated, StyleSheet, Button, SafeAreaView } from \"react-native\";\r\n\r\nconst Rotate = () => {\r\n    // fadeAnim will be used as the value for opacity. Initial Value: 0\r\n    const rotateAnim = useRef(new Animated.Value(0)).current;\r\n    const rotate = rotateAnim.interpolate({\r\n        inputRange: [0, 1],\r\n        outputRange: [\"0deg\", \"360deg\"]\r\n    })\r\n    const rotateButton = () => {\r\n        Animated.\r\n            Animated.timing(rotateAnim, {\r\n                toValue: 1,\r\n                duration: 3000\r\n            }).start();\r\n    };\r\n\r\n    return (\r\n        <SafeAreaView style={styles.container}>\r\n            <Animated.Image style={[styles.images, {\r\n                transform: [{ rotate: rotate }]\r\n            }]} />\r\n            <Button title=\"Press\" onPress={rotateButton} />\r\n        </SafeAreaView>\r\n    );\r\n}\r\n\r\nconst styles = StyleSheet.create({\r\n    container: {\r\n        flex: 1,\r\n        alignItems: \"center\",\r\n        justifyContent: \"center\"\r\n    },\r\n    images: {\r\n        width: 100,\r\n        height: 100,\r\n    },\r\n    button: {\r\n        flexBasis: 100,\r\n        justifyContent: \"space-evenly\",\r\n        marginVertical: 16\r\n    }\r\n});\r\n\r\nexport default Rotate;"
+        }
+    ]
+}

@@ -1,0 +1,166 @@
+{
+    "sourceFile": "App.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 37,
+            "patches": [
+                {
+                    "date": 1644587412074,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1644587507819,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,12 +1,68 @@\n-import React from \"react\"\n-import { View } from \"react-native\"\n+import React, { useRef } from \"react\";\n+import { Animated, Text, View, StyleSheet, Button, SafeAreaView } from \"react-native\";\n \n \n const App = () => {\n+\n+  const fadeAnim = useRef(new Animated.Value(0)).current;\n+\n+\n+  const fadeIn = () => {\n\\ No newline at end of file\n+    // Will change fadeAnim value to 1 in 5 seconds\n+    Animated.timing(fadeAnim, {\n+      toValue: 1,\n+      duration: 5000\n+    }).start();\n+  };\n+\n+  const fadeOut = () => {\n+    // Will change fadeAnim value to 0 in 3 seconds\n+    Animated.timing(fadeAnim, {\n+      toValue: 0,\n+      duration: 3000\n+    }).start();\n+  };\n+\n   return (\n-    <View style={{flex:1 }}>\n-\n-    </View>\n+    <SafeAreaView style={styles.container}>\n+      <Animated.View\n+        style={[\n+          styles.fadingContainer,\n+          {\n+            // Bind opacity to animated value\n+            opacity: fadeAnim\n+          }\n+        ]}\n+      >\n+        <Text style={styles.fadingText}>Fading View!</Text>\n+      </Animated.View>\n+      <View style={styles.buttonRow}>\n+        <Button title=\"Fade In View\" onPress={fadeIn} />\n+        <Button title=\"Fade Out View\" onPress={fadeOut} />\n+      </View>\n+    </SafeAreaView>\n   )\n }\n- export default App\n+\n+\n+const styles = StyleSheet.create({\n+  container: {\n+    flex: 1,\n+    alignItems: \"center\",\n+    justifyContent: \"center\"\n+  },\n+  fadingContainer: {\n+    padding: 20,\n+    backgroundColor: \"powderblue\"\n+  },\n+  fadingText: {\n+    fontSize: 28\n+  },\n+  buttonRow: {\n+    flexBasis: 100,\n+    justifyContent: \"space-evenly\",\n+    marginVertical: 16\n+  }\n+});\n+\n+export default App\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1644587611150,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -24,19 +24,21 @@\n   };\n \n   return (\n     <SafeAreaView style={styles.container}>\n+      \n       <Animated.View\n         style={[\n           styles.fadingContainer,\n           {\n             // Bind opacity to animated value\n-            opacity: fadeAnim\n+            opacity: 1\n           }\n         ]}\n       >\n         <Text style={styles.fadingText}>Fading View!</Text>\n       </Animated.View>\n+\n       <View style={styles.buttonRow}>\n         <Button title=\"Fade In View\" onPress={fadeIn} />\n         <Button title=\"Fade Out View\" onPress={fadeOut} />\n       </View>\n"
+                },
+                {
+                    "date": 1644587619669,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -30,9 +30,9 @@\n         style={[\n           styles.fadingContainer,\n           {\n             // Bind opacity to animated value\n-            opacity: 1\n+            opacity: 0.5\n           }\n         ]}\n       >\n         <Text style={styles.fadingText}>Fading View!</Text>\n"
+                },
+                {
+                    "date": 1644587869427,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -30,9 +30,9 @@\n         style={[\n           styles.fadingContainer,\n           {\n             // Bind opacity to animated value\n-            opacity: 0.5\n+            opacity: 0\n           }\n         ]}\n       >\n         <Text style={styles.fadingText}>Fading View!</Text>\n"
+                },
+                {
+                    "date": 1644588035798,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,17 +5,27 @@\n const App = () => {\n \n   const fadeAnim = useRef(new Animated.Value(0)).current;\n \n+  const translateXAnim = useRef(new Animated.Value(300)).current;\n \n+\n   const fadeIn = () => {\n     // Will change fadeAnim value to 1 in 5 seconds\n     Animated.timing(fadeAnim, {\n       toValue: 1,\n       duration: 5000\n     }).start();\n   };\n \n+  const translateBack = () => {\n+    // Will change fadeAnim value to 1 in 5 seconds\n+    Animated.timing(translateXAnim, {\n+      toValue: 0,\n+      duration: 3000\n+    }).start();\n+  };\n+\n   const fadeOut = () => {\n     // Will change fadeAnim value to 0 in 3 seconds\n     Animated.timing(fadeAnim, {\n       toValue: 0,\n@@ -30,9 +40,10 @@\n         style={[\n           styles.fadingContainer,\n           {\n             // Bind opacity to animated value\n-            opacity: 0\n+            opacity: fadeAnim,\n+            transform: [{translateX: translateXAnim}]\n           }\n         ]}\n       >\n         <Text style={styles.fadingText}>Fading View!</Text>\n@@ -40,8 +51,9 @@\n \n       <View style={styles.buttonRow}>\n         <Button title=\"Fade In View\" onPress={fadeIn} />\n         <Button title=\"Fade Out View\" onPress={fadeOut} />\n+        <Button title=\"Translate back\" onPress={translateBack} />\n       </View>\n     </SafeAreaView>\n   )\n }\n"
+                },
+                {
+                    "date": 1644588043584,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -40,9 +40,9 @@\n         style={[\n           styles.fadingContainer,\n           {\n             // Bind opacity to animated value\n-            opacity: fadeAnim,\n+            opacity: 1,\n             transform: [{translateX: translateXAnim}]\n           }\n         ]}\n       >\n"
+                },
+                {
+                    "date": 1644588050832,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -40,9 +40,9 @@\n         style={[\n           styles.fadingContainer,\n           {\n             // Bind opacity to animated value\n-            opacity: 1,\n+            opacity: fadeAnim,\n             transform: [{translateX: translateXAnim}]\n           }\n         ]}\n       >\n"
+                },
+                {
+                    "date": 1644588060651,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,9 @@\n \n \n const App = () => {\n \n-  const fadeAnim = useRef(new Animated.Value(0)).current;\n+  const fadeAnim = useRef(new Animated.Value(1)).current;\n \n   const translateXAnim = useRef(new Animated.Value(300)).current;\n \n \n"
+                },
+                {
+                    "date": 1644588069663,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,9 @@\n \n \n const App = () => {\n \n-  const fadeAnim = useRef(new Animated.Value(1)).current;\n+  const fadeAnim = useRef(new Animated.Value(0)).current;\n \n   const translateXAnim = useRef(new Animated.Value(300)).current;\n \n \n@@ -40,9 +40,9 @@\n         style={[\n           styles.fadingContainer,\n           {\n             // Bind opacity to animated value\n-            opacity: fadeAnim,\n+            opacity: 1,\n             transform: [{translateX: translateXAnim}]\n           }\n         ]}\n       >\n"
+                },
+                {
+                    "date": 1644588099408,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,9 +5,9 @@\n const App = () => {\n \n   const fadeAnim = useRef(new Animated.Value(0)).current;\n \n-  const translateXAnim = useRef(new Animated.Value(300)).current;\n+  const translateXAnim = useRef(new Animated.Value(100)).current;\n \n \n   const fadeIn = () => {\n     // Will change fadeAnim value to 1 in 5 seconds\n"
+                },
+                {
+                    "date": 1644588108708,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -40,10 +40,9 @@\n         style={[\n           styles.fadingContainer,\n           {\n             // Bind opacity to animated value\n-            opacity: 1,\n-            transform: [{translateX: translateXAnim}]\n+            opacity: 1\n           }\n         ]}\n       >\n         <Text style={styles.fadingText}>Fading View!</Text>\n"
+                },
+                {
+                    "date": 1644588114948,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -40,9 +40,10 @@\n         style={[\n           styles.fadingContainer,\n           {\n             // Bind opacity to animated value\n-            opacity: 1\n+            opacity: 1,\n+            transform: [{translateX: translateXAnim}]\n           }\n         ]}\n       >\n         <Text style={styles.fadingText}>Fading View!</Text>\n"
+                },
+                {
+                    "date": 1644588187452,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -39,9 +39,8 @@\n       <Animated.View\n         style={[\n           styles.fadingContainer,\n           {\n-            // Bind opacity to animated value\n             opacity: 1,\n             transform: [{translateX: translateXAnim}]\n           }\n         ]}\n"
+                },
+                {
+                    "date": 1644588218621,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -47,8 +47,15 @@\n       >\n         <Text style={styles.fadingText}>Fading View!</Text>\n       </Animated.View>\n \n+\n+      <Animated.View\n+        style={{width: 100, height: 100, backgroundColor: 'red'}}\n+      >\n+        <Text style={styles.fadingText}>Red box</Text>\n+      </Animated.View>\n+\n       <View style={styles.buttonRow}>\n         <Button title=\"Fade In View\" onPress={fadeIn} />\n         <Button title=\"Fade Out View\" onPress={fadeOut} />\n         <Button title=\"Translate back\" onPress={translateBack} />\n"
+                },
+                {
+                    "date": 1644588241792,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -49,9 +49,9 @@\n       </Animated.View>\n \n \n       <Animated.View\n-        style={{width: 100, height: 100, backgroundColor: 'red'}}\n+        style={{width: 100, height: 100, backgroundColor: 'red', transform: [{translateX: 0, translateY: 0}]}}\n       >\n         <Text style={styles.fadingText}>Red box</Text>\n       </Animated.View>\n \n"
+                },
+                {
+                    "date": 1644588252261,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -49,9 +49,9 @@\n       </Animated.View>\n \n \n       <Animated.View\n-        style={{width: 100, height: 100, backgroundColor: 'red', transform: [{translateX: 0, translateY: 0}]}}\n+        style={{width: 100, height: 100, backgroundColor: 'red', transform: [{translateX: 0}]}}\n       >\n         <Text style={styles.fadingText}>Red box</Text>\n       </Animated.View>\n \n"
+                },
+                {
+                    "date": 1644588317110,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -33,35 +33,34 @@\n     }).start();\n   };\n \n   return (\n-    <SafeAreaView style={styles.container}>\n-      \n-      <Animated.View\n-        style={[\n-          styles.fadingContainer,\n-          {\n-            opacity: 1,\n-            transform: [{translateX: translateXAnim}]\n-          }\n-        ]}\n-      >\n-        <Text style={styles.fadingText}>Fading View!</Text>\n-      </Animated.View>\n+    // <SafeAreaView style={styles.container}>\n+    //   <Animated.View\n+    //     style={[\n+    //       styles.fadingContainer,\n+    //       {\n+    //         opacity: 1,\n+    //         transform: [{translateX: translateXAnim}]\n+    //       }\n+    //     ]}\n+    //   >\n+    //     <Text style={styles.fadingText}>Fading View!</Text>\n+    //   </Animated.View>\n \n-\n+    //   <View style={styles.buttonRow}>\n+    //     <Button title=\"Fade In View\" onPress={fadeIn} />\n+    //     <Button title=\"Fade Out View\" onPress={fadeOut} />\n+    //     <Button title=\"Translate back\" onPress={translateBack} />\n+    //   </View>\n+    // </SafeAreaView>\n+    <View style={{ flex: 1 }}>\n       <Animated.View\n-        style={{width: 100, height: 100, backgroundColor: 'red', transform: [{translateX: 0}]}}\n+        style={{ width: 100, height: 100, backgroundColor: 'red', transform: [{ translateX: 0 }] }}\n       >\n         <Text style={styles.fadingText}>Red box</Text>\n       </Animated.View>\n-\n-      <View style={styles.buttonRow}>\n-        <Button title=\"Fade In View\" onPress={fadeIn} />\n-        <Button title=\"Fade Out View\" onPress={fadeOut} />\n-        <Button title=\"Translate back\" onPress={translateBack} />\n-      </View>\n-    </SafeAreaView>\n+    </View>\n   )\n }\n \n \n"
+                },
+                {
+                    "date": 1644588387990,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -24,8 +24,16 @@\n       duration: 3000\n     }).start();\n   };\n \n+  const translateTo = () => {\n+    // Will change fadeAnim value to 1 in 5 seconds\n+    Animated.timing(translateXAnim, {\n+      toValue: 0,\n+      duration: 3000\n+    }).start();\n+  };\n+\n   const fadeOut = () => {\n     // Will change fadeAnim value to 0 in 3 seconds\n     Animated.timing(fadeAnim, {\n       toValue: 0,\n@@ -58,8 +66,11 @@\n         style={{ width: 100, height: 100, backgroundColor: 'red', transform: [{ translateX: 0 }] }}\n       >\n         <Text style={styles.fadingText}>Red box</Text>\n       </Animated.View>\n+\n+      <Button title=\"Translate back\" onPress={translateBack} />\n+      <Button title=\"Translate to\" onPress={translateTo} />\n     </View>\n   )\n }\n \n"
+                },
+                {
+                    "date": 1644588431883,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n import React, { useRef } from \"react\";\n-import { Animated, Text, View, StyleSheet, Button, SafeAreaView } from \"react-native\";\n+import { Animated, Text, View, StyleSheet, Button, SafeAreaView, Dimensions } from \"react-native\";\n \n-\n+const { width } = Dimensions.get('screen');\n const App = () => {\n \n   const fadeAnim = useRef(new Animated.Value(0)).current;\n \n"
+                },
+                {
+                    "date": 1644588449125,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -27,9 +27,9 @@\n \n   const translateTo = () => {\n     // Will change fadeAnim value to 1 in 5 seconds\n     Animated.timing(translateXAnim, {\n-      toValue: 0,\n+      toValue: width,\n       duration: 3000\n     }).start();\n   };\n \n"
+                },
+                {
+                    "date": 1644588505106,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -62,9 +62,13 @@\n     //   </View>\n     // </SafeAreaView>\n     <View style={{ flex: 1 }}>\n       <Animated.View\n-        style={{ width: 100, height: 100, backgroundColor: 'red', transform: [{ translateX: 0 }] }}\n+        style={{ \n+          width: 100, \n+          height: 100, \n+          backgroundColor: 'red', \n+        transform: [{ translateX: translateXAnim }] }}\n       >\n         <Text style={styles.fadingText}>Red box</Text>\n       </Animated.View>\n \n"
+                },
+                {
+                    "date": 1644588547179,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,9 +5,9 @@\n const App = () => {\n \n   const fadeAnim = useRef(new Animated.Value(0)).current;\n \n-  const translateXAnim = useRef(new Animated.Value(100)).current;\n+  const translateXAnim = useRef(new Animated.Value(0)).current;\n \n \n   const fadeIn = () => {\n     // Will change fadeAnim value to 1 in 5 seconds\n"
+                },
+                {
+                    "date": 1644588752570,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,8 @@\n   const fadeAnim = useRef(new Animated.Value(0)).current;\n \n   const translateXAnim = useRef(new Animated.Value(0)).current;\n \n-\n   const fadeIn = () => {\n     // Will change fadeAnim value to 1 in 5 seconds\n     Animated.timing(fadeAnim, {\n       toValue: 1,\n@@ -27,9 +26,9 @@\n \n   const translateTo = () => {\n     // Will change fadeAnim value to 1 in 5 seconds\n     Animated.timing(translateXAnim, {\n-      toValue: width,\n+      toValue: width - 100,\n       duration: 3000\n     }).start();\n   };\n \n"
+                },
+                {
+                    "date": 1644588788850,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -60,8 +60,10 @@\n     //     <Button title=\"Translate back\" onPress={translateBack} />\n     //   </View>\n     // </SafeAreaView>\n     <View style={{ flex: 1 }}>\n+\n+      <View style={{flex: 1}}>\n       <Animated.View\n         style={{ \n           width: 100, \n           height: 100, \n@@ -69,8 +71,9 @@\n         transform: [{ translateX: translateXAnim }] }}\n       >\n         <Text style={styles.fadingText}>Red box</Text>\n       </Animated.View>\n+      </View>\n \n       <Button title=\"Translate back\" onPress={translateBack} />\n       <Button title=\"Translate to\" onPress={translateTo} />\n     </View>\n"
+                },
+                {
+                    "date": 1644588895005,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,14 +1,16 @@\n import React, { useRef } from \"react\";\n import { Animated, Text, View, StyleSheet, Button, SafeAreaView, Dimensions } from \"react-native\";\n \n-const { width } = Dimensions.get('screen');\n+const { width, height } = Dimensions.get('screen');\n const App = () => {\n \n   const fadeAnim = useRef(new Animated.Value(0)).current;\n \n   const translateXAnim = useRef(new Animated.Value(0)).current;\n \n+  const translateYAnim = useRef(new Animated.Value(0)).current;\n+\n   const fadeIn = () => {\n     // Will change fadeAnim value to 1 in 5 seconds\n     Animated.timing(fadeAnim, {\n       toValue: 1,\n@@ -31,8 +33,24 @@\n       duration: 3000\n     }).start();\n   };\n \n+  const translateToTop = () => {\n+    // Will change fadeAnim value to 1 in 5 seconds\n+    Animated.timing(translateYAnim, {\n+      toValue: 0,\n+      duration: 3000\n+    }).start();\n+  };\n+\n+  const translateToBottom = () => {\n+    // Will change fadeAnim value to 1 in 5 seconds\n+    Animated.timing(translateYAnim, {\n+      toValue: height - 100,\n+      duration: 3000\n+    }).start();\n+  };\n+\n   const fadeOut = () => {\n     // Will change fadeAnim value to 0 in 3 seconds\n     Animated.timing(fadeAnim, {\n       toValue: 0,\n@@ -75,8 +93,10 @@\n       </View>\n \n       <Button title=\"Translate back\" onPress={translateBack} />\n       <Button title=\"Translate to\" onPress={translateTo} />\n+      <Button title=\"Translate to Top\" onPress={translateToTop} />\n+      <Button title=\"Translate bottom\" onPress={translateToBottom} />\n     </View>\n   )\n }\n \n"
+                },
+                {
+                    "date": 1644588918982,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -85,9 +85,9 @@\n         style={{ \n           width: 100, \n           height: 100, \n           backgroundColor: 'red', \n-        transform: [{ translateX: translateXAnim }] }}\n+        transform: [{ translateX: translateXAnim, translateY: translateYAnim }] }}\n       >\n         <Text style={styles.fadingText}>Red box</Text>\n       </Animated.View>\n       </View>\n"
+                },
+                {
+                    "date": 1644588930773,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -85,9 +85,9 @@\n         style={{ \n           width: 100, \n           height: 100, \n           backgroundColor: 'red', \n-        transform: [{ translateX: translateXAnim, translateY: translateYAnim }] }}\n+        transform: [{ translateX: translateXAnim }, { translateY: translateYAnim }] }}\n       >\n         <Text style={styles.fadingText}>Red box</Text>\n       </Animated.View>\n       </View>\n"
+                },
+                {
+                    "date": 1644588948077,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -84,9 +84,10 @@\n       <Animated.View\n         style={{ \n           width: 100, \n           height: 100, \n-          backgroundColor: 'red', \n+          backgroundColor: 'red',\n+          zIndex: 999,\n         transform: [{ translateX: translateXAnim }, { translateY: translateYAnim }] }}\n       >\n         <Text style={styles.fadingText}>Red box</Text>\n       </Animated.View>\n"
+                },
+                {
+                    "date": 1644588971522,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -44,9 +44,9 @@\n \n   const translateToBottom = () => {\n     // Will change fadeAnim value to 1 in 5 seconds\n     Animated.timing(translateYAnim, {\n-      toValue: height - 100,\n+      toValue: height - 200,\n       duration: 3000\n     }).start();\n   };\n \n"
+                },
+                {
+                    "date": 1644588989146,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -44,9 +44,9 @@\n \n   const translateToBottom = () => {\n     // Will change fadeAnim value to 1 in 5 seconds\n     Animated.timing(translateYAnim, {\n-      toValue: height - 200,\n+      toValue: height - 400,\n       duration: 3000\n     }).start();\n   };\n \n"
+                },
+                {
+                    "date": 1644589013029,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,11 +4,9 @@\n const { width, height } = Dimensions.get('screen');\n const App = () => {\n \n   const fadeAnim = useRef(new Animated.Value(0)).current;\n-\n   const translateXAnim = useRef(new Animated.Value(0)).current;\n-\n   const translateYAnim = useRef(new Animated.Value(0)).current;\n \n   const fadeIn = () => {\n     // Will change fadeAnim value to 1 in 5 seconds\n"
+                },
+                {
+                    "date": 1644589084753,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,8 +7,11 @@\n   const fadeAnim = useRef(new Animated.Value(0)).current;\n   const translateXAnim = useRef(new Animated.Value(0)).current;\n   const translateYAnim = useRef(new Animated.Value(0)).current;\n \n+\n+\n+\n   const fadeIn = () => {\n     // Will change fadeAnim value to 1 in 5 seconds\n     Animated.timing(fadeAnim, {\n       toValue: 1,\n@@ -55,8 +58,22 @@\n       duration: 3000\n     }).start();\n   };\n \n+\n+  const translateToRandom = () => {\n+    Animated.timing(translateYAnim, {\n+      toValue: height - 400,\n+      duration: 3000\n+    }).start();\n+\n+\n+    Animated.timing(translateXAnim, {\n+      toValue: width - 100,\n+      duration: 3000\n+    }).start();\n+  };\n+\n   return (\n     // <SafeAreaView style={styles.container}>\n     //   <Animated.View\n     //     style={[\n@@ -94,8 +111,10 @@\n       <Button title=\"Translate back\" onPress={translateBack} />\n       <Button title=\"Translate to\" onPress={translateTo} />\n       <Button title=\"Translate to Top\" onPress={translateToTop} />\n       <Button title=\"Translate bottom\" onPress={translateToBottom} />\n+      <Button title=\"Translate bottom\" onPress={translateToRandom} />\n+      \n     </View>\n   )\n }\n \n"
+                },
+                {
+                    "date": 1644589093482,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -111,9 +111,9 @@\n       <Button title=\"Translate back\" onPress={translateBack} />\n       <Button title=\"Translate to\" onPress={translateTo} />\n       <Button title=\"Translate to Top\" onPress={translateToTop} />\n       <Button title=\"Translate bottom\" onPress={translateToBottom} />\n-      <Button title=\"Translate bottom\" onPress={translateToRandom} />\n+      <Button title=\"Translate random\" onPress={translateToRandom} />\n       \n     </View>\n   )\n }\n"
+                },
+                {
+                    "date": 1644589226540,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -60,18 +60,31 @@\n   };\n \n \n   const translateToRandom = () => {\n-    Animated.timing(translateYAnim, {\n-      toValue: height - 400,\n-      duration: 3000\n-    }).start();\n+    // Animated.timing(translateYAnim, {\n+    //   toValue: height - 400,\n+    //   duration: 3000\n+    // }).start();\n \n \n-    Animated.timing(translateXAnim, {\n-      toValue: width - 100,\n-      duration: 3000\n-    }).start();\n+    // Animated.timing(translateXAnim, {\n+    //   toValue: width - 100,\n+    //   duration: 3000\n+    // }).start();\n+\n+\n+\n+    Animated.parallel([\n+      Animated.timing(translateYAnim, {\n+        toValue: height - 400,\n+        duration: 3000\n+      }),\n+      Animated.timing(translateXAnim, {\n+        toValue: width - 100,\n+        duration: 3000\n+      })\n+    ]).start();\n   };\n \n   return (\n     // <SafeAreaView style={styles.container}>\n"
+                },
+                {
+                    "date": 1644589267313,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -60,31 +60,33 @@\n   };\n \n \n   const translateToRandom = () => {\n-    // Animated.timing(translateYAnim, {\n-    //   toValue: height - 400,\n-    //   duration: 3000\n-    // }).start();\n+    Animated.timing(translateYAnim, {\n+      toValue: height - 400,\n+      duration: 3000\n+    }).start();\n \n+    Animated.delay(6000);\n \n-    // Animated.timing(translateXAnim, {\n-    //   toValue: width - 100,\n-    //   duration: 3000\n-    // }).start();\n \n+    Animated.timing(translateXAnim, {\n+      toValue: width - 100,\n+      duration: 3000\n+    }).start();\n \n \n-    Animated.parallel([\n-      Animated.timing(translateYAnim, {\n-        toValue: height - 400,\n-        duration: 3000\n-      }),\n-      Animated.timing(translateXAnim, {\n-        toValue: width - 100,\n-        duration: 3000\n-      })\n-    ]).start();\n+\n+    // Animated.parallel([\n+    //   Animated.timing(translateYAnim, {\n+    //     toValue: height - 400,\n+    //     duration: 3000\n+    //   }),\n+    //   Animated.timing(translateXAnim, {\n+    //     toValue: width - 100,\n+    //     duration: 3000\n+    //   })\n+    // ]).start();\n   };\n \n   return (\n     // <SafeAreaView style={styles.container}>\n"
+                },
+                {
+                    "date": 1644589334544,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -65,18 +65,15 @@\n       toValue: height - 400,\n       duration: 3000\n     }).start();\n \n-    Animated.delay(6000);\n+    setTimeout(() => {\n+      Animated.timing(translateXAnim, {\n+        toValue: width - 100,\n+        duration: 3000\n+      }).start();\n+    }, 6000);\n \n-\n-    Animated.timing(translateXAnim, {\n-      toValue: width - 100,\n-      duration: 3000\n-    }).start();\n-\n-\n-\n     // Animated.parallel([\n     //   Animated.timing(translateYAnim, {\n     //     toValue: height - 400,\n     //     duration: 3000\n@@ -109,27 +106,28 @@\n     //   </View>\n     // </SafeAreaView>\n     <View style={{ flex: 1 }}>\n \n-      <View style={{flex: 1}}>\n-      <Animated.View\n-        style={{ \n-          width: 100, \n-          height: 100, \n-          backgroundColor: 'red',\n-          zIndex: 999,\n-        transform: [{ translateX: translateXAnim }, { translateY: translateYAnim }] }}\n-      >\n-        <Text style={styles.fadingText}>Red box</Text>\n-      </Animated.View>\n+      <View style={{ flex: 1 }}>\n+        <Animated.View\n+          style={{\n+            width: 100,\n+            height: 100,\n+            backgroundColor: 'red',\n+            zIndex: 999,\n+            transform: [{ translateX: translateXAnim }, { translateY: translateYAnim }]\n+          }}\n+        >\n+          <Text style={styles.fadingText}>Red box</Text>\n+        </Animated.View>\n       </View>\n \n       <Button title=\"Translate back\" onPress={translateBack} />\n       <Button title=\"Translate to\" onPress={translateTo} />\n       <Button title=\"Translate to Top\" onPress={translateToTop} />\n       <Button title=\"Translate bottom\" onPress={translateToBottom} />\n       <Button title=\"Translate random\" onPress={translateToRandom} />\n-      \n+\n     </View>\n   )\n }\n \n"
+                },
+                {
+                    "date": 1644589397022,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -60,30 +60,30 @@\n   };\n \n \n   const translateToRandom = () => {\n-    Animated.timing(translateYAnim, {\n-      toValue: height - 400,\n-      duration: 3000\n-    }).start();\n+    // Animated.timing(translateYAnim, {\n+    //   toValue: height - 400,\n+    //   duration: 3000\n+    // }).start();\n \n-    setTimeout(() => {\n+    // setTimeout(() => {\n+    //   Animated.timing(translateXAnim, {\n+    //     toValue: width - 100,\n+    //     duration: 3000\n+    //   }).start();\n+    // }, 6000);\n+\n+    Animated.parallel([\n+      Animated.timing(translateYAnim, {\n+        toValue: height - 400,\n+        duration: 3000\n+      }),\n       Animated.timing(translateXAnim, {\n         toValue: width - 100,\n         duration: 3000\n-      }).start();\n-    }, 6000);\n-\n-    // Animated.parallel([\n-    //   Animated.timing(translateYAnim, {\n-    //     toValue: height - 400,\n-    //     duration: 3000\n-    //   }),\n-    //   Animated.timing(translateXAnim, {\n-    //     toValue: width - 100,\n-    //     duration: 3000\n-    //   })\n-    // ]).start();\n+      })\n+    ]).start();\n   };\n \n   return (\n     // <SafeAreaView style={styles.container}>\n"
+                }
+            ],
+            "date": 1644587412074,
+            "name": "Commit-0",
+            "content": "import React from \"react\"\nimport { View } from \"react-native\"\n\n\nconst App = () => {\n  return (\n    <View style={{flex:1 }}>\n\n    </View>\n  )\n}\n export default App"
+        }
+    ]
+}

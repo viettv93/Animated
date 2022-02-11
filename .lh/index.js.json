@@ -1,0 +1,22 @@
+{
+    "sourceFile": "index.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1644589457096,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1644592391670,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,6 +5,6 @@\n import {AppRegistry} from 'react-native';\n import App from './App';\n import Entry from './Entry';\n import {name as appName} from './app.json';\n-\n-AppRegistry.registerComponent(appName, () => Entry);\n+import Rotate from \"./Rotate\"\n+AppRegistry.registerComponent(appName, () => Rotate);\n"
+                }
+            ],
+            "date": 1644589457096,
+            "name": "Commit-0",
+            "content": "/**\n * @format\n */\n\nimport {AppRegistry} from 'react-native';\nimport App from './App';\nimport Entry from './Entry';\nimport {name as appName} from './app.json';\n\nAppRegistry.registerComponent(appName, () => Entry);\n"
+        }
+    ]
+}
